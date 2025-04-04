@@ -33,7 +33,7 @@ public class HabitTracker
 
         while (true)
         {
-            Console.Clear(); // Clear the console before displaying the menu
+            Console.Clear();
             Console.WriteLine("\nHabit Tracker");
             Console.WriteLine("1. Add Task");
             Console.WriteLine("2. Mark Task Completed");
@@ -46,7 +46,7 @@ public class HabitTracker
             Console.Write("Enter your choice: ");
             string choice = Console.ReadLine();
 
-            Console.Clear(); // Clear the console before displaying the selected option's output
+            Console.Clear();
 
             switch (choice)
             {
@@ -76,7 +76,7 @@ public class HabitTracker
             }
 
             Console.WriteLine("\nPress any key to continue...");
-            Console.ReadKey(); // Wait for user input before displaying the menu again
+            Console.ReadKey();
         }
     }
 
@@ -131,14 +131,27 @@ public class HabitTracker
         }
 
         Console.WriteLine($"{"Date",-12}{"Task Name",-20}{"Status"}");
-        Console.WriteLine("--------------------------------------");
+        Console.WriteLine("-----------------------------------------");
 
         foreach (var task in tasks)
         {
             CultureInfo swedishCulture = new CultureInfo("sv-SE");
             string dateString = task.Date.ToString("yyyy-MM-dd", swedishCulture);
-            string status = task.Completed ? "Completed" : "Pending";
-            Console.WriteLine($"{dateString,-12}{task.Name,-20}{status}");
+
+            Console.Write($"{dateString,-12}{task.Name,-20}");
+
+            if (task.Completed)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Completed");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Pending");
+                Console.ResetColor();
+            }
         }
     }
 
