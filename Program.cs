@@ -25,7 +25,7 @@ namespace dailyTaskz
         }
     }
 
-    public class  HabitTracker
+    public class HabitTracker
     {
         static void Main(string[] args)
         {
@@ -33,7 +33,7 @@ namespace dailyTaskz
             string filename = "tasks.txt";
             LoadTasks(tasks, filename);
 
-            while (true) 
+            while (true)
             {
                 Console.WriteLine("\nHabit Tracker");
                 Console.WriteLine("1. Add Task");
@@ -46,7 +46,7 @@ namespace dailyTaskz
                 Console.WriteLine("Enter your choice: ");
                 string choice = Console.ReadLine();
 
-                switch (choice) 
+                switch (choice)
                 {
                     case "1":
                         AddTask(tasks);
@@ -58,6 +58,64 @@ namespace dailyTaskz
                         ViewTasks(tasks);
                         break;
                     case "4":
+                        SaveTasks(tasks, filename);
+                        break;
+                    case "5":
+                        LoadTasks(tasks, filename);
+                        break;
+                    case "6":
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
+            }
         }
+
+        static void AddTask(List<Task> tasks)
+        {
+            Console.WriteLine("Enter task name: ");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Enter date (dd-MM-yyyy): ");
+            if (DateTime.TryParse(Console.ReadLine(), out DateTime date))
+            {
+                tasks.Add(new Task(name, date));
+                Console.WriteLine("Task added.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid date format.")
+            }
+        }
+
+        static void MarkTaskCompleted(List<Task> tasks)
+        {
+            if (tasks.Count == 0)
+            {
+                Console.WriteLine("No tasks available.");
+                return;
+            }
+
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {tasks[i]}");
+            }
+
+            Console.Write("Enter task number to mark as completed: ");
+            if (int.TryParse(Console.ReadLine(), out int taskNumber) && taskNumber > 0 <= tasks.Count)
+            {
+                tasks[taskNumber - 1].Completed = true;
+                Console.WriteLine("Task marked as completed.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid task number.");
+            }
+        }
+
+        static void ViewTasks(List<Task> tasks) 
+        {
+
     }
 }
