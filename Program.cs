@@ -19,7 +19,7 @@ public class Task
     public override string ToString()
     {
         CultureInfo swedishCulture = new CultureInfo("sv-SE");
-        return $"[{Date.ToString("yyyy-MM-dd", swedishCulture)}] {Name}: {(Completed ? "Completed" : "Pending")}";
+        return $"[{Date.ToString("yyyy-MM-dd", swedishCulture)}] {Name}: {(Completed ? "Completed" : "Pending..")}";
     }
 }
 
@@ -43,7 +43,7 @@ public class HabitTracker
             Console.WriteLine("6. Remove Task");
             Console.WriteLine("7. Exit");
 
-            Console.Write("Enter your choice: ");
+            Console.Write("\nEnter your choice: ");
             string choice = Console.ReadLine();
 
             Console.Clear();
@@ -149,7 +149,7 @@ public class HabitTracker
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Pending");
+                Console.WriteLine("Pending..");
                 Console.ResetColor();
             }
         }
