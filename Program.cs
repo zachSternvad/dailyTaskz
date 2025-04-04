@@ -33,17 +33,20 @@ public class HabitTracker
 
         while (true)
         {
+            Console.Clear(); // Clear the console before displaying the menu
             Console.WriteLine("\nHabit Tracker");
             Console.WriteLine("1. Add Task");
             Console.WriteLine("2. Mark Task Completed");
             Console.WriteLine("3. View Tasks");
             Console.WriteLine("4. Save Tasks");
             Console.WriteLine("5. Load Tasks");
-            Console.WriteLine("6. Remove Task"); // Added Remove Task option
+            Console.WriteLine("6. Remove Task");
             Console.WriteLine("7. Exit");
 
             Console.Write("Enter your choice: ");
             string choice = Console.ReadLine();
+
+            Console.Clear(); // Clear the console before displaying the selected option's output
 
             switch (choice)
             {
@@ -63,7 +66,7 @@ public class HabitTracker
                     LoadTasks(tasks, filename);
                     break;
                 case "6":
-                    RemoveTask(tasks); // Call RemoveTask function
+                    RemoveTask(tasks);
                     break;
                 case "7":
                     return;
@@ -71,6 +74,9 @@ public class HabitTracker
                     Console.WriteLine("Invalid choice.");
                     break;
             }
+
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey(); // Wait for user input before displaying the menu again
         }
     }
 
