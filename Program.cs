@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization; // Add this for culture info
+using System.Globalization;
 using System.IO;
 
 public class Task
@@ -18,7 +18,7 @@ public class Task
 
     public override string ToString()
     {
-        CultureInfo swedishCulture = new CultureInfo("sv-SE"); // Swedish Culture
+        CultureInfo swedishCulture = new CultureInfo("sv-SE");
         return $"[{Date.ToString("yyyy-MM-dd", swedishCulture)}] {Name}: {(Completed ? "Completed" : "Pending")}";
     }
 }
@@ -120,9 +120,15 @@ public class HabitTracker
             return;
         }
 
+        Console.WriteLine($"{"Date",-12}{"Task Name",-20}{"Status"}"); // Adjusted header spacing
+        Console.WriteLine("--------------------------------------");
+
         foreach (var task in tasks)
         {
-            Console.WriteLine(task);
+            CultureInfo swedishCulture = new CultureInfo("sv-SE");
+            string dateString = task.Date.ToString("yyyy-MM-dd", swedishCulture);
+            string status = task.Completed ? "Completed" : "Pending";
+            Console.WriteLine($"{dateString,-12}{task.Name,-20}{status}"); // Adjusted row spacing
         }
     }
 
