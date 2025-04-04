@@ -39,7 +39,8 @@ public class HabitTracker
             Console.WriteLine("3. View Tasks");
             Console.WriteLine("4. Save Tasks");
             Console.WriteLine("5. Load Tasks");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("6. Remove Task"); // Added Remove Task option
+            Console.WriteLine("7. Exit");
 
             Console.Write("Enter your choice: ");
             string choice = Console.ReadLine();
@@ -62,6 +63,9 @@ public class HabitTracker
                     LoadTasks(tasks, filename);
                     break;
                 case "6":
+                    RemoveTask(tasks); // Call RemoveTask function
+                    break;
+                case "7":
                     return;
                 default:
                     Console.WriteLine("Invalid choice.");
@@ -120,7 +124,7 @@ public class HabitTracker
             return;
         }
 
-        Console.WriteLine($"{"Date",-12}{"Task Name",-20}{"Status"}"); // Adjusted header spacing
+        Console.WriteLine($"{"Date",-12}{"Task Name",-20}{"Status"}");
         Console.WriteLine("--------------------------------------");
 
         foreach (var task in tasks)
@@ -128,7 +132,7 @@ public class HabitTracker
             CultureInfo swedishCulture = new CultureInfo("sv-SE");
             string dateString = task.Date.ToString("yyyy-MM-dd", swedishCulture);
             string status = task.Completed ? "Completed" : "Pending";
-            Console.WriteLine($"{dateString,-12}{task.Name,-20}{status}"); // Adjusted row spacing
+            Console.WriteLine($"{dateString,-12}{task.Name,-20}{status}");
         }
     }
 
@@ -180,6 +184,31 @@ public class HabitTracker
         catch (Exception ex)
         {
             Console.WriteLine($"Error loading tasks: {ex.Message}");
+        }
+    }
+
+    static void RemoveTask(List<Task> tasks)
+    {
+        if (tasks.Count == 0)
+        {
+            Console.WriteLine("No tasks available to remove.");
+            return;
+        }
+
+        for (int i = 0; i < tasks.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {tasks[i]}");
+        }
+
+        Console.Write("Enter the task number to remove: ");
+        if (int.TryParse(Console.ReadLine(), out int taskNumber) && taskNumber > 0 && taskNumber <= tasks.Count)
+        {
+            tasks.RemoveAt(taskNumber - 1);
+            Console.WriteLine("Task removed.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid task number.");
         }
     }
 }
