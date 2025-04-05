@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 public class Task
 {
@@ -130,13 +131,25 @@ public class HabitTracker
             return;
         }
 
+        var sortedTasks = tasks
+            .OrderBy(task => task.Date)
+            .ThenBy(task => task.Completed)
+            .ToList();
+
         Console.WriteLine($"{"Date",-12}{"Task Name",-20}{"Status"}");
         Console.WriteLine("-----------------------------------------");
 
-        foreach (var task in tasks)
+        DateTime? lastDate = null;
+
+        foreach (var task in sortedTasks)
         {
             CultureInfo swedishCulture = new CultureInfo("sv-SE");
             string dateString = task.Date.ToString("yyyy-MM-dd", swedishCulture);
+
+            if (lastDate.HasValue && lastDate.Value.Date != task.Date.Date)
+            {
+                Console.WriteLine(); // Add an empty line between different dates
+            }
 
             Console.Write($"{dateString,-12}{task.Name,-20}");
 
@@ -152,6 +165,8 @@ public class HabitTracker
                 Console.WriteLine("Pending..");
                 Console.ResetColor();
             }
+
+            lastDate = task.Date;
         }
     }
 
